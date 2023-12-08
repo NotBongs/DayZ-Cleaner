@@ -1,0 +1,10 @@
+C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\bin\Debug\DayZ Cleanup.exe.config
+C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\bin\Debug\DayZ Cleanup.exe
+C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\bin\Debug\DayZ Cleanup.pdb
+C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZFileManipulator.csproj.AssemblyReference.cache
+C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ_Cleanup.Properties.Resources.resources
+C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZFileManipulator.csproj.GenerateResource.cache
+C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZFileManipulator.csproj.CoreCompileInputs.cache
+C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ Cleanup.exe
+C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ Cleanup.pdb
+C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ_Cleanup.MainForm.resources

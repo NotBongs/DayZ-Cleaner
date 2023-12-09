@@ -9,6 +9,8 @@ C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ Purge.cspr
 C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ Cleanup.exe
 C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ Cleanup.pdb
 C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\bin\Debug\DayZ Cleanup.exe.config
+C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\bin\Debug\DayZ Cleanup.exe.manifest
+C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\bin\Debug\DayZ Cleanup.application
 C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\bin\Debug\DayZ Cleanup.exe
 C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\bin\Debug\DayZ Cleanup.pdb
 C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ Purge.csproj.AssemblyReference.cache
@@ -16,9 +18,7 @@ C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ_Cl
 C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ_Cleanup.Properties.Resources.resources
 C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ Purge.csproj.GenerateResource.cache
 C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ Purge.csproj.CoreCompileInputs.cache
-C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ Cleanup.exe
-C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ Cleanup.pdb
-C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\bin\Debug\DayZ Cleanup.exe.manifest
-C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\bin\Debug\DayZ Cleanup.application
 C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ Cleanup.exe.manifest
 C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ Cleanup.application
+C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ Cleanup.exe
+C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Debug\DayZ Cleanup.pdb

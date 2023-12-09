@@ -4,7 +4,7 @@
   <description asmv2:iconFile="DZC.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="DayZ Cleanup" version="1.0.2.0" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="DayZ Cleanup" version="2.0.0.0" language="neutral" processorArchitecture="msil" />
     <commandLine file="DayZ Cleanup.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -44,13 +44,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DayZ Cleanup.exe" size="25016">
-      <assemblyIdentity name="DayZ Cleanup" version="1.0.2.0" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="DayZ Cleanup" version="2.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>XIlyfHNGH3ZlQ3yA4nEVcAIX7Bf1YwUFXRtp4ReYN7o=</dsig:DigestValue>
+        <dsig:DigestValue>4qSKe30cTRIqW1USxBA/cchAdwv9h6N6fB2/LY/oHos=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

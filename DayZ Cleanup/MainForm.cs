@@ -39,7 +39,7 @@ namespace DayZ_Cleanup
         {
             try
             {
-                string versionCheckUrl = "https://pastebin.com/raw/Tz5v17pm";
+                string versionCheckUrl = "https://raw.githubusercontent.com/NotBongs/DayZ-Cleaner/main/Version.txt";
 
                 using (WebClient webClient = new WebClient())
                 {
@@ -49,11 +49,16 @@ namespace DayZ_Cleanup
 
                     if (latestVersion > currentVersion)
                     {
-                        MessageBox.Show($"A new version ({latestVersion}) is available! Please update your application.", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Your application is up to date.", "No Updates", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult dialogResult = MessageBox.Show(
+                            $"A new version ({latestVersion}) is available! Do you want to update?",
+                            "Update Available",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question);
+
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            System.Diagnostics.Process.Start("https://github.com/NotBongs/DayZ-Cleaner/releases");
+                        }
                     }
                 }
             }
@@ -62,6 +67,7 @@ namespace DayZ_Cleanup
                 MessageBox.Show("An error occurred while checking for updates: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void InitializeCustomTitleBar()
         {

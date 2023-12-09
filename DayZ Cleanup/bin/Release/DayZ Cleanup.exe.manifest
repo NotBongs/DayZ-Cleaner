@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DayZ Cleanup.exe" size="25016">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DayZ Cleanup.exe" size="24504">
       <assemblyIdentity name="DayZ Cleanup" version="2.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>4qSKe30cTRIqW1USxBA/cchAdwv9h6N6fB2/LY/oHos=</dsig:DigestValue>
+        <dsig:DigestValue>QV6As/wnKmN23oSJFG1BBixla6zBZir7eUKullLr7f0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

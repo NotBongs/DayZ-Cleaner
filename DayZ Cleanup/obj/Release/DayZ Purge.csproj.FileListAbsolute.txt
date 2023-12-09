@@ -8,3 +8,13 @@ C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\obj\Release\DayZ Purge.cs
 C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\obj\Release\DayZ Purge.csproj.CoreCompileInputs.cache
 C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\obj\Release\DayZ Cleanup.exe
 C:\Users\Bongsy\source\repos\DayZ Cleanup\DayZ Cleanup\obj\Release\DayZ Cleanup.pdb
+C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\bin\Release\DayZ Cleanup.exe.config
+C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\bin\Release\DayZ Cleanup.exe
+C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\bin\Release\DayZ Cleanup.pdb
+C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Release\DayZ Purge.csproj.AssemblyReference.cache
+C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Release\DayZ_Cleanup.MainForm.resources
+C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Release\DayZ_Cleanup.Properties.Resources.resources
+C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Release\DayZ Purge.csproj.GenerateResource.cache
+C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Release\DayZ Purge.csproj.CoreCompileInputs.cache
+C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Release\DayZ Cleanup.exe
+C:\Users\Bongsy\Desktop\DayZ Cleanup\DayZ Cleanup\DayZ Cleanup\obj\Release\DayZ Cleanup.pdb

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Net;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace DayZ_Cleanup
@@ -13,6 +15,8 @@ namespace DayZ_Cleanup
         private string dayZFolder;
         private RadioButton radioButtonKeep;
         private RadioButton radioButtonRemove;
+        private RadioButton radioButtonRemoveCrashFiles;
+        private RadioButton radioButtonRemoveScriptFiles;
         private Button buttonRunScript;
         private ListBox listBoxDeletedFiles;
 
@@ -23,11 +27,40 @@ namespace DayZ_Cleanup
             this.Icon = Properties.Resources.DZC;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.None;
-            
+            CheckForUpdates();
+
             this.BackColor = System.Drawing.ColorTranslator.FromHtml("#191b28");
             this.Text = "DayZ Cleaner";
             dayZFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DayZ");
             InitializeControls();
+        }
+
+        private void CheckForUpdates()
+        {
+            try
+            {
+                string versionCheckUrl = "https://pastebin.com/raw/Tz5v17pm";
+
+                using (WebClient webClient = new WebClient())
+                {
+                    string latestVersionStr = webClient.DownloadString(versionCheckUrl);
+                    Version latestVersion = new Version(latestVersionStr);
+                    Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
+                    if (latestVersion > currentVersion)
+                    {
+                        MessageBox.Show($"A new version ({latestVersion}) is available! Please update your application.", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Your application is up to date.", "No Updates", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while checking for updates: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void InitializeCustomTitleBar()
@@ -42,8 +75,8 @@ namespace DayZ_Cleanup
             labelTitle.Text = "DayZ Cleaner";
             labelTitle.ForeColor = System.Drawing.Color.White;
             labelTitle.AutoSize = true;
-            labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            labelTitle.Location = new System.Drawing.Point(10, 10);
+            labelTitle.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            labelTitle.Location = new System.Drawing.Point(10, 12);
 
             buttonExit = new Button();
             buttonExit.Text = "X";
@@ -61,8 +94,6 @@ namespace DayZ_Cleanup
             panelTitleBar.Controls.Add(buttonExit);
             this.Controls.Add(panelTitleBar);
         }
-
-
 
         private void PanelTitleBar_MouseDown(object sender, MouseEventArgs e)
         {
@@ -89,19 +120,32 @@ namespace DayZ_Cleanup
             radioButtonKeep = new RadioButton();
             radioButtonKeep.AutoSize = true;
             radioButtonKeep.ForeColor = System.Drawing.Color.White;
+
             radioButtonRemove = new RadioButton();
             radioButtonRemove.AutoSize = true;
             radioButtonRemove.ForeColor = radioButtonKeep.ForeColor = System.Drawing.Color.White;
+
+            radioButtonRemoveCrashFiles = new RadioButton();
+            radioButtonRemoveCrashFiles.AutoSize = true;
+            radioButtonRemoveCrashFiles.ForeColor = System.Drawing.Color.White;
+            radioButtonRemoveCrashFiles.Text = "Remove Crash Files";
+
+            radioButtonRemoveScriptFiles = new RadioButton(); // New radio button
+            radioButtonRemoveScriptFiles.AutoSize = true;
+            radioButtonRemoveScriptFiles.ForeColor = System.Drawing.Color.White;
+            radioButtonRemoveScriptFiles.Text = "Remove Script Files";
+
             buttonRunScript = new Button();
             buttonRunScript.ForeColor = System.Drawing.Color.White;
             buttonRunScript.FlatAppearance.BorderSize = 0;
             buttonRunScript.FlatStyle = FlatStyle.Flat;
             buttonRunScript.BackColor = System.Drawing.Color.DarkSlateBlue;
+
             listBoxDeletedFiles = new ListBox();
             listBoxDeletedFiles.BorderStyle = BorderStyle.None;
             listBoxDeletedFiles.ForeColor = radioButtonKeep.ForeColor = System.Drawing.Color.White;
             listBoxDeletedFiles.BackColor = System.Drawing.ColorTranslator.FromHtml("#191b28");
-
+            listBoxDeletedFiles.SelectedIndexChanged += ListBoxDeletedFiles_SelectedIndexChanged;
 
             Button buttonBackup = new Button();
             buttonBackup.Text = "Backup";
@@ -113,19 +157,8 @@ namespace DayZ_Cleanup
             buttonBackup.Location = new System.Drawing.Point(150, 120);
             Controls.Add(buttonBackup);
 
-            LinkLabel linkLabelWebsite = new LinkLabel();
-            linkLabelWebsite.Text = "Creator";
-            linkLabelWebsite.VisitedLinkColor = System.Drawing.Color.DarkSlateBlue;
-            linkLabelWebsite.LinkColor = System.Drawing.Color.White;
-            linkLabelWebsite.AutoSize = true;
-            linkLabelWebsite.Location = new System.Drawing.Point(450, 60);
-            linkLabelWebsite.LinkClicked += LinkLabelWebsite_LinkClicked;
-
-            Controls.Add(linkLabelWebsite);
-
-
-            radioButtonKeep.Text = "Clear Cache + Keep Map Markers.";
-            radioButtonRemove.Text = "Clear Cache + Remove Map Markers.";
+            radioButtonKeep.Text = "Clear All Cache + Keep Map Markers.";
+            radioButtonRemove.Text = "Clear All Cache + Remove Map Markers.";
             radioButtonKeep.Checked = true;
 
             buttonRunScript.Text = "Run Script";
@@ -133,21 +166,28 @@ namespace DayZ_Cleanup
 
             Controls.Add(radioButtonKeep);
             Controls.Add(radioButtonRemove);
+            Controls.Add(radioButtonRemoveCrashFiles);
+            Controls.Add(radioButtonRemoveScriptFiles);
             Controls.Add(buttonRunScript);
             Controls.Add(listBoxDeletedFiles);
 
             radioButtonKeep.Location = new System.Drawing.Point(20, 60);
             radioButtonRemove.Location = new System.Drawing.Point(20, 90);
+            radioButtonRemoveCrashFiles.Location = new System.Drawing.Point(300, 60);
+            radioButtonRemoveScriptFiles.Location = new System.Drawing.Point(300, 90);
             buttonRunScript.Location = new System.Drawing.Point(20, 120);
             listBoxDeletedFiles.Location = new System.Drawing.Point(20, 150);
             listBoxDeletedFiles.Size = new System.Drawing.Size(400, 200);
         }
 
-        private void LinkLabelWebsite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ButtonRunScript_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://bongsy.rip");
-        }
+            bool keepMapMarkersCache = radioButtonKeep.Checked;
+            bool removeCrashFiles = radioButtonRemoveCrashFiles.Checked;
+            bool removeScriptFiles = radioButtonRemoveScriptFiles.Checked;
 
+            RunScript(keepMapMarkersCache, removeCrashFiles, removeScriptFiles);
+        }
 
         private void ButtonBackup_Click(object sender, EventArgs e)
         {
@@ -202,8 +242,7 @@ namespace DayZ_Cleanup
         }
 
 
-
-        private void RunScript(bool keepMapMarkersCache)
+        private void RunScript(bool keepMapMarkersCache, bool removeCrashFiles, bool removeScriptFiles)
         {
             try
             {
@@ -221,8 +260,17 @@ namespace DayZ_Cleanup
                     if (keepMapMarkersCache && Path.GetFileName(file).Equals("MapMarkersCache.json", StringComparison.OrdinalIgnoreCase))
                         continue;
 
-                    File.Delete(file);
-                    listBoxDeletedFiles.Items.Add($"Deleted file: {file}");
+                    if (removeCrashFiles && Path.GetExtension(file).Equals(".txt", StringComparison.OrdinalIgnoreCase) && Path.GetFileName(file).ToLower().Contains("crash"))
+                    {
+                        File.Delete(file);
+                        listBoxDeletedFiles.Items.Add($"Deleted file: {file}");
+                    }
+
+                    if (removeScriptFiles && Path.GetFileName(file).ToLower().StartsWith("script"))
+                    {
+                        File.Delete(file);
+                        listBoxDeletedFiles.Items.Add($"Deleted file: {file}");
+                    }
                 }
 
                 foreach (string directory in directories)
@@ -234,7 +282,27 @@ namespace DayZ_Cleanup
                     listBoxDeletedFiles.Items.Add($"Deleted: {directory}");
                 }
 
-                MessageBox.Show(keepMapMarkersCache ? "Script executed to keep MapMarkersCache.json." : "Script executed to remove MapMarkersCache.json.", "Operation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (listBoxDeletedFiles.Items.Count > 0)
+                {
+                    listBoxDeletedFiles.TopIndex = listBoxDeletedFiles.Items.Count - 1;
+                }
+
+                if (removeScriptFiles)
+                {
+                    MessageBox.Show("Script executed to remove script files.", "Operation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (removeCrashFiles)
+                {
+                    MessageBox.Show("Script executed to remove crash files.", "Operation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (keepMapMarkersCache)
+                {
+                    MessageBox.Show("Script executed to purge cache and keep map markers", "Operation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Script executed to purge cache and remove map markers", "Operation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
@@ -242,10 +310,9 @@ namespace DayZ_Cleanup
             }
         }
 
-        private void ButtonRunScript_Click(object sender, EventArgs e)
+        private void ListBoxDeletedFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool keepMapMarkersCache = radioButtonKeep.Checked;
-            RunScript(keepMapMarkersCache);
+            listBoxDeletedFiles.TopIndex = listBoxDeletedFiles.Items.Count - 1;
         }
     }
 }

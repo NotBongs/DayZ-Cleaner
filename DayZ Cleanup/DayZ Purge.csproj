@@ -7,7 +7,7 @@
     <ProjectGuid>{2269B2A6-68E5-472B-9936-07E194AC1655}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>DayZ_Cleanup</RootNamespace>
-    <AssemblyName>DayZ Cleanup</AssemblyName>
+    <AssemblyName>DayZ Cleaner</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

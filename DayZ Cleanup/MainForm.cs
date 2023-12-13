@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -16,9 +17,10 @@ namespace DayZ_Cleanup
         private string dayZFolder;
         private RadioButton radioButtonKeep;
         private RadioButton radioButtonRemove;
-        private RadioButton radioButtonCustomRemove; // Added RadioButton for custom removal
+        private RadioButton radioButtonCustomRemove;
         private Button buttonRunScript;
         private ListBox listBoxDeletedFiles;
+        private Label labelTotalDeletedSize;
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
         private static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
@@ -146,6 +148,13 @@ namespace DayZ_Cleanup
             radioButtonKeep.AutoSize = true;
             radioButtonKeep.ForeColor = System.Drawing.Color.White;
 
+            labelTotalDeletedSize = new Label();
+            labelTotalDeletedSize.AutoSize = true;
+            labelTotalDeletedSize.ForeColor = System.Drawing.Color.White;
+            labelTotalDeletedSize.Text = "Total Size Deleted: 0 Bytes";
+            labelTotalDeletedSize.Location = new System.Drawing.Point(200, 125);
+            Controls.Add(labelTotalDeletedSize);
+
             radioButtonRemove = new RadioButton();
             radioButtonRemove.AutoSize = true;
             radioButtonRemove.ForeColor = System.Drawing.Color.White;
@@ -163,6 +172,18 @@ namespace DayZ_Cleanup
             buttonRunScript.BackColor = System.Drawing.Color.DarkSlateBlue;
             buttonRunScript.Text = "Run Script";
             buttonRunScript.Click += ButtonRunScript_Click;
+
+            Button openFolderButton = new Button();
+            openFolderButton.Text = "Open Directory";
+            openFolderButton.AutoSize = true;
+            openFolderButton.ForeColor = System.Drawing.Color.White;
+            openFolderButton.BackColor = System.Drawing.Color.DarkSlateBlue;
+            openFolderButton.FlatStyle = FlatStyle.Flat;
+            openFolderButton.FlatAppearance.BorderSize = 0;
+            openFolderButton.Location = new System.Drawing.Point(400, 120);
+            openFolderButton.Click += OpenFolderButton_Click;
+
+            Controls.Add(openFolderButton);
 
             Button buttonBackup = new Button();
             buttonBackup.Text = "Backup";
@@ -195,6 +216,25 @@ namespace DayZ_Cleanup
             buttonRunScript.Location = new System.Drawing.Point(20, 120);
             listBoxDeletedFiles.Location = new System.Drawing.Point(20, 150);
             listBoxDeletedFiles.Size = new System.Drawing.Size(450, 150);
+        }
+
+        private void OpenFolderButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Directory.Exists(dayZFolder))
+                {
+                    System.Diagnostics.Process.Start(dayZFolder);
+                }
+                else
+                {
+                    MessageBox.Show("DayZ folder not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error opening directory: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ButtonBackup_Click(object sender, EventArgs e)
@@ -259,12 +299,12 @@ namespace DayZ_Cleanup
         {
             bool keepMapMarkersCache = radioButtonKeep.Checked;
             bool customRemoveCrashScript = radioButtonCustomRemove.Checked;
+            bool removeEverything = radioButtonRemove.Checked;
 
-            RunScript(keepMapMarkersCache, customRemoveCrashScript);
+            RunScript(keepMapMarkersCache, customRemoveCrashScript, removeEverything);
         }
 
-
-        private void RunScript(bool keepMapMarkersCache, bool customRemove)
+        private void RunScript(bool keepMapMarkersCache, bool customRemove, bool removeEverything)
         {
             try
             {
@@ -274,61 +314,156 @@ namespace DayZ_Cleanup
                     return;
                 }
 
-                string[] files = Directory.GetFiles(dayZFolder);
-                string[] directories = Directory.GetDirectories(dayZFolder);
+                long totalDeletedSize = 0;
 
-                foreach (string file in files)
+                if (keepMapMarkersCache)
                 {
-                    Console.WriteLine($"Processing file: {file}");
+                    string[] filesToKeep = { "MapMarkersCache.json", "SchanaModParty" };
 
-                    if (keepMapMarkersCache && Path.GetFileName(file).Equals("MapMarkersCache.json", StringComparison.OrdinalIgnoreCase))
-                        continue;
-
-                    if (customRemove)
+                    string[] files = Directory.GetFiles(dayZFolder);
+                    foreach (string file in files)
                     {
                         string fileName = Path.GetFileName(file);
-                        if (fileName.StartsWith("crash", StringComparison.OrdinalIgnoreCase) || fileName.StartsWith("script", StringComparison.OrdinalIgnoreCase))
+                        if (!filesToKeep.Contains(fileName, StringComparer.OrdinalIgnoreCase))
                         {
-
-                            bool fileExists = File.Exists(file);
-                            if (fileExists)
+                            if (File.Exists(file))
                             {
+                                FileInfo fileInfo = new FileInfo(file);
+                                totalDeletedSize += fileInfo.Length;
+
                                 File.Delete(file);
                                 listBoxDeletedFiles.Items.Add($"Deleted file: {file}");
                             }
                             else
                             {
-                                listBoxDeletedFiles.Items.Add($"File not found: {file}");
+                                listBoxDeletedFiles.Items.Add($"Skipped: {file} (not a file)");
                             }
+                        }
+                    }
+
+                    string[] folders = Directory.GetDirectories(dayZFolder);
+                    foreach (string folder in folders)
+                    {
+                        string folderName = Path.GetFileName(folder);
+                        if (!filesToKeep.Contains(folderName, StringComparer.OrdinalIgnoreCase))
+                        {
+                            Directory.Delete(folder, true);
+                            listBoxDeletedFiles.Items.Add($"Deleted folder: {folder}");
+                        }
+                    }
+                }
+                else if (customRemove)
+                {
+                    string[] files = Directory.GetFiles(dayZFolder);
+                    foreach (string file in files)
+                    {
+                        string fileName = Path.GetFileName(file);
+                        if (fileName.StartsWith("crash", StringComparison.OrdinalIgnoreCase) || fileName.StartsWith("script", StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (File.Exists(file))
+                            {
+                                FileInfo fileInfo = new FileInfo(file);
+                                totalDeletedSize += fileInfo.Length;
+
+                                File.Delete(file);
+                                listBoxDeletedFiles.Items.Add($"Deleted file: {file}");
+                            }
+                            else
+                            {
+                                listBoxDeletedFiles.Items.Add($"Skipped: {file} (not a file)");
+                            }
+                        }
+                    }
+                }
+                else if (removeEverything)
+                {
+                    string[] files = Directory.GetFiles(dayZFolder);
+                    foreach (string file in files)
+                    {
+                        if (File.Exists(file))
+                        {
+                            FileInfo fileInfo = new FileInfo(file);
+                            totalDeletedSize += fileInfo.Length;
+
+                            File.Delete(file);
+                            listBoxDeletedFiles.Items.Add($"Deleted file: {file}");
                         }
                         else
                         {
-                            listBoxDeletedFiles.Items.Add($"File name doesn't match criteria: {file}");
+                            listBoxDeletedFiles.Items.Add($"Skipped: {file} (not a file)");
                         }
                     }
-                    else
+
+                    string[] folders = Directory.GetDirectories(dayZFolder);
+                    foreach (string folder in folders)
                     {
-                        File.Delete(file);
-                        listBoxDeletedFiles.Items.Add($"Deleted file: {file}");
+                        DirectoryInfo dirInfo = new DirectoryInfo(folder);
+                        totalDeletedSize += DirSize(dirInfo);
+
+                        Directory.Delete(folder, true);
+                        listBoxDeletedFiles.Items.Add($"Deleted folder: {folder}");
                     }
                 }
 
-                foreach (string directory in directories)
-                {
-                    if (keepMapMarkersCache && Path.GetFileName(directory).Equals("MapMarkersCache.json", StringComparison.OrdinalIgnoreCase))
-                        continue;
+                string operationMessage = keepMapMarkersCache ? "Script executed to keep MapMarkersCache.json and SchanaModParty folder."
+                    : customRemove ? "Custom removal completed."
+                    : removeEverything ? "Everything in the folder has been deleted."
+                    : "Script executed to remove MapMarkersCache.json.";
 
-                    Directory.Delete(directory, true);
-                    listBoxDeletedFiles.Items.Add($"Deleted: {directory}");
-                }
+                string totalSizeMessage = GetFormattedSize(totalDeletedSize);
 
-                string operationMessage = keepMapMarkersCache ? "Script executed to keep MapMarkersCache.json." : "Script executed to remove MapMarkersCache.json.";
-                MessageBox.Show(customRemove ? "Custom removal completed." : operationMessage, "Operation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                labelTotalDeletedSize.Text = $"Total Size Deleted: {totalSizeMessage}";
+
+                MessageBox.Show(operationMessage, "Operation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occurred during script execution: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+
+        private long CalculateTotalDeletedSize(string folderPath)
+        {
+            long size = 0;
+
+            DirectoryInfo directory = new DirectoryInfo(folderPath);
+
+            foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+            {
+                size += file.Length;
+            }
+
+            return size;
+        }
+
+        private long DirSize(DirectoryInfo d)
+        {
+            long size = 0;
+            FileInfo[] fis = d.GetFiles();
+            foreach (FileInfo fi in fis)
+            {
+                size += fi.Length;
+            }
+            DirectoryInfo[] dis = d.GetDirectories();
+            foreach (DirectoryInfo di in dis)
+            {
+                size += DirSize(di);
+            }
+            return size;
+        }
+
+        private string GetFormattedSize(long bytes)
+        {
+            string[] sizes = { "Bytes", "KB", "MB", "GB", "TB" };
+            int order = 0;
+            while (bytes >= 1024 && order < sizes.Length - 1)
+            {
+                order++;
+                bytes = bytes / 1024;
+            }
+
+            return $"{bytes:0.##} {sizes[order]}";
         }
     }
 }

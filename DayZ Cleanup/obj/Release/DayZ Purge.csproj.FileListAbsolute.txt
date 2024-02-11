@@ -18,3 +18,13 @@ C:\Users\Bongsy\Desktop\DayZ Cleanup 2\DayZ Cleanup\DayZ Cleanup\bin\Release\Day
 C:\Users\Bongsy\Desktop\DayZ Cleanup 2\DayZ Cleanup\DayZ Cleanup\bin\Release\DayZ Cleaner.pdb
 C:\Users\Bongsy\Desktop\DayZ Cleanup 2\DayZ Cleanup\DayZ Cleanup\obj\Release\DayZ Cleaner.exe
 C:\Users\Bongsy\Desktop\DayZ Cleanup 2\DayZ Cleanup\DayZ Cleanup\obj\Release\DayZ Cleaner.pdb
+C:\Users\Bongsy\Desktop\DayZ-Cleaner-2.1.0.0\DayZ-Cleaner-2.1.0.0\DayZ Cleanup\bin\Release\DayZ Cleaner.exe.config
+C:\Users\Bongsy\Desktop\DayZ-Cleaner-2.1.0.0\DayZ-Cleaner-2.1.0.0\DayZ Cleanup\bin\Release\DayZ Cleaner.exe
+C:\Users\Bongsy\Desktop\DayZ-Cleaner-2.1.0.0\DayZ-Cleaner-2.1.0.0\DayZ Cleanup\bin\Release\DayZ Cleaner.pdb
+C:\Users\Bongsy\Desktop\DayZ-Cleaner-2.1.0.0\DayZ-Cleaner-2.1.0.0\DayZ Cleanup\obj\Release\DayZ Purge.csproj.AssemblyReference.cache
+C:\Users\Bongsy\Desktop\DayZ-Cleaner-2.1.0.0\DayZ-Cleaner-2.1.0.0\DayZ Cleanup\obj\Release\DayZ_Cleanup.MainForm.resources
+C:\Users\Bongsy\Desktop\DayZ-Cleaner-2.1.0.0\DayZ-Cleaner-2.1.0.0\DayZ Cleanup\obj\Release\DayZ_Cleanup.Properties.Resources.resources
+C:\Users\Bongsy\Desktop\DayZ-Cleaner-2.1.0.0\DayZ-Cleaner-2.1.0.0\DayZ Cleanup\obj\Release\DayZ Purge.csproj.GenerateResource.cache
+C:\Users\Bongsy\Desktop\DayZ-Cleaner-2.1.0.0\DayZ-Cleaner-2.1.0.0\DayZ Cleanup\obj\Release\DayZ Purge.csproj.CoreCompileInputs.cache
+C:\Users\Bongsy\Desktop\DayZ-Cleaner-2.1.0.0\DayZ-Cleaner-2.1.0.0\DayZ Cleanup\obj\Release\DayZ Cleaner.exe
+C:\Users\Bongsy\Desktop\DayZ-Cleaner-2.1.0.0\DayZ-Cleaner-2.1.0.0\DayZ Cleanup\obj\Release\DayZ Cleaner.pdb

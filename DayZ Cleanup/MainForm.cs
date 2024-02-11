@@ -207,8 +207,8 @@ namespace DayZ_Cleanup
             Controls.Add(buttonRunScript);
             Controls.Add(listBoxDeletedFiles);
 
-            radioButtonKeep.Text = "Clear Cache + Keep Map Markers.";
-            radioButtonRemove.Text = "Clear Cache + Remove Map Markers.";
+            radioButtonKeep.Text = "Clear Cache + Keep Team Settings";
+            radioButtonRemove.Text = "Purge All Cache";
             radioButtonKeep.Checked = true;
 
             radioButtonKeep.Location = new System.Drawing.Point(20, 60);
@@ -318,7 +318,7 @@ namespace DayZ_Cleanup
 
                 if (keepMapMarkersCache)
                 {
-                    string[] filesToKeep = { "MapMarkersCache.json", "SchanaModParty" };
+                    string[] filesToKeep = { "LBmaster" };
 
                     string[] files = Directory.GetFiles(dayZFolder);
                     foreach (string file in files)
@@ -405,10 +405,10 @@ namespace DayZ_Cleanup
                     }
                 }
 
-                string operationMessage = keepMapMarkersCache ? "Script executed to keep MapMarkersCache.json and SchanaModParty folder."
-                    : customRemove ? "Custom removal completed."
-                    : removeEverything ? "Everything in the folder has been deleted."
-                    : "Script executed to remove MapMarkersCache.json.";
+                string operationMessage = keepMapMarkersCache ? "Successfully Removed Cache & Kept Team Settings"
+                    : customRemove ? "Successfully Removed Crash & Script Files"
+                    : removeEverything ? "Successfully Purged All"
+                    : "Success";
 
                 string totalSizeMessage = GetFormattedSize(totalDeletedSize);
 

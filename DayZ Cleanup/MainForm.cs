@@ -66,6 +66,7 @@ namespace DayZ_Cleanup
                         if (dialogResult == DialogResult.Yes)
                         {
                             System.Diagnostics.Process.Start("https://github.com/NotBongs/DayZ-Cleaner/releases");
+                            Environment.Exit(0);
                         }
                     }
                 }
@@ -86,17 +87,19 @@ namespace DayZ_Cleanup
 
             labelTitle = new Label();
             labelTitle.Text = "DayZ Cleaner";
+            labelTitle.Font = new Font("Segoe UI", 12, FontStyle.Regular);
             labelTitle.ForeColor = System.Drawing.Color.White;
             labelTitle.AutoSize = true;
             labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            labelTitle.Location = new System.Drawing.Point(10, 12);
+            labelTitle.Location = new System.Drawing.Point(12, 9);
 
             buttonExit = new Button();
+            buttonExit.Cursor = Cursors.Hand;
             buttonExit.Text = "X";
             buttonExit.FlatStyle = FlatStyle.Flat;
             buttonExit.FlatAppearance.BorderSize = 0;
             buttonExit.ForeColor = System.Drawing.Color.White;
-            buttonExit.BackColor = System.Drawing.Color.Transparent;
+            buttonExit.BackColor = System.Drawing.Color.DarkSlateBlue;
             buttonExit.Size = new System.Drawing.Size(40, 40);
             buttonExit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             buttonExit.Click += ButtonExit_Click;
@@ -113,13 +116,13 @@ namespace DayZ_Cleanup
         private void ButtonExit_MouseHover(object sender, EventArgs e)
         {
             buttonExit.ForeColor = Color.Red;
-            buttonExit.BackColor = Color.Transparent;
+            buttonExit.BackColor = Color.DarkSlateBlue;
         }
 
         private void ButtonExit_MouseLeave(object sender, EventArgs e)
         {
             buttonExit.ForeColor = Color.White;
-            buttonExit.BackColor = Color.Transparent;
+            buttonExit.BackColor = Color.DarkSlateBlue;
         }
 
         private void PanelTitleBar_MouseDown(object sender, MouseEventArgs e)
@@ -160,21 +163,27 @@ namespace DayZ_Cleanup
             radioButtonRemove.ForeColor = System.Drawing.Color.White;
 
             radioButtonCustomRemove = new RadioButton();
+            radioButtonCustomRemove.Cursor = Cursors.Hand;
             radioButtonCustomRemove.AutoSize = true;
             radioButtonCustomRemove.ForeColor = System.Drawing.Color.White;
             radioButtonCustomRemove.Text = "Remove Crash + Script Files";
+            radioButtonCustomRemove.Font = new Font("Segoe UI", 8, FontStyle.Regular);
             radioButtonCustomRemove.Location = new System.Drawing.Point(300, 60);
 
             buttonRunScript = new Button();
+            buttonRunScript.Cursor = Cursors.Hand;
             buttonRunScript.ForeColor = System.Drawing.Color.White;
             buttonRunScript.FlatAppearance.BorderSize = 0;
             buttonRunScript.FlatStyle = FlatStyle.Flat;
             buttonRunScript.BackColor = System.Drawing.Color.DarkSlateBlue;
             buttonRunScript.Text = "Run Script";
+            buttonRunScript.Font = new Font("Segoe UI", 8, FontStyle.Regular);
             buttonRunScript.Click += ButtonRunScript_Click;
 
             Button openFolderButton = new Button();
+            openFolderButton.Cursor = Cursors.Hand;
             openFolderButton.Text = "Open Directory";
+            openFolderButton.Font = new Font("Segoe UI", 8, FontStyle.Regular);
             openFolderButton.AutoSize = true;
             openFolderButton.ForeColor = System.Drawing.Color.White;
             openFolderButton.BackColor = System.Drawing.Color.DarkSlateBlue;
@@ -186,7 +195,9 @@ namespace DayZ_Cleanup
             Controls.Add(openFolderButton);
 
             Button buttonBackup = new Button();
+            buttonBackup.Cursor = Cursors.Hand;
             buttonBackup.Text = "Backup";
+            buttonBackup.Font = new Font("Segoe UI", 8, FontStyle.Regular);
             buttonBackup.ForeColor = System.Drawing.Color.White;
             buttonBackup.FlatAppearance.BorderSize = 0;
             buttonBackup.FlatStyle = FlatStyle.Flat;
@@ -208,7 +219,11 @@ namespace DayZ_Cleanup
             Controls.Add(listBoxDeletedFiles);
 
             radioButtonKeep.Text = "Clear Cache + Keep Team Settings";
+            radioButtonKeep.Cursor = Cursors.Hand;
+            radioButtonKeep.Font = new Font("Segoe UI", 8, FontStyle.Regular);
             radioButtonRemove.Text = "Purge All Cache";
+            radioButtonRemove.Cursor = Cursors.Hand;
+            radioButtonRemove.Font = new Font("Segoe UI", 8, FontStyle.Regular);
             radioButtonKeep.Checked = true;
 
             radioButtonKeep.Location = new System.Drawing.Point(20, 60);
@@ -413,6 +428,7 @@ namespace DayZ_Cleanup
                 string totalSizeMessage = GetFormattedSize(totalDeletedSize);
 
                 labelTotalDeletedSize.Text = $"Total Size Deleted: {totalSizeMessage}";
+                labelTotalDeletedSize.Font = new Font("Segoe UI", 8, FontStyle.Regular);
 
                 MessageBox.Show(operationMessage, "Operation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

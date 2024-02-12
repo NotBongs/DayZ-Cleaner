@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -65,8 +66,8 @@ namespace DayZ_Cleanup
 
                         if (dialogResult == DialogResult.Yes)
                         {
-                            System.Diagnostics.Process.Start("https://github.com/NotBongs/DayZ-Cleaner/releases");
-                            Environment.Exit(0);
+                            // Launch the updater application
+                            StartUpdater();
                         }
                     }
                 }
@@ -74,6 +75,35 @@ namespace DayZ_Cleanup
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred while checking for updates: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void StartUpdater()
+        {
+            try
+            {
+                // Get the directory of the current executable
+                string currentDirectory = Path.GetDirectoryName(Application.ExecutablePath);
+
+                // Path to the updater application in the same directory
+                string updaterPath = Path.Combine(currentDirectory, "DayZ Cleaner Updater.exe");
+
+                if (File.Exists(updaterPath))
+                {
+                    // Start the updater application
+                    Process.Start(updaterPath);
+
+                    // Exit the current application
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    MessageBox.Show("Updater application not found in the same directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while starting the updater: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

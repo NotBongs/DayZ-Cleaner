@@ -363,7 +363,7 @@ namespace DayZ_Cleanup
 
                 if (keepMapMarkersCache)
                 {
-                    string[] filesToKeep = { "LBmaster" };
+                    string[] filesToKeep = { "LBmaster", "SchanaModParty" };
 
                     string[] files = Directory.GetFiles(dayZFolder);
                     foreach (string file in files)
